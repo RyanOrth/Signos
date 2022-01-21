@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+node_modules
+.vscode
+.devcontainer
+secret
+private
