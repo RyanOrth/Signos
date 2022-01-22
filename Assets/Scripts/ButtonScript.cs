@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonScript : MonoBehaviour
 {
-    public GameObject settingsPanel;
+    public GameObject panel;
 
     public void StartGame()
-    {
+    { 
         SceneManager.LoadScene("SampleScene");
     }
 
-    public void SettingsPanel()
+    public void TogglePanel()
     {
-        settingsPanel.SetActive(!settingsPanel.activeSelf);
+        panel.SetActive(!panel.activeSelf);
     }
 }
