@@ -117,4 +117,31 @@ public class TestHandDataPrint : MonoBehaviour
     Debug.Log("TimeVisible: " + TimeVisible);
 
   }
+
+  void PrintBoneData(Bone bone)
+  {
+    Vector PrevJoint = bone.PrevJoint;  //base of the bone closest to wrist
+    Vector BoneMidpoint = bone.Center;
+    Vector NextJoint = bone.NextJoint;  //end of the bone, closest to finger tip
+    Vector Direction = bone.Direction;
+
+    float Length = bone.Length;
+    float Width = bone.Width;
+    // BoneType boneType = bone.Type;
+
+    LeapQuaternion Rotation = bone.Rotation;
+    LeapTransform basis = bone.Basis;
+
+    Debug.Log("PrevJoint: " + PrevJoint);
+    Debug.Log("BoneMidpoint: " + BoneMidpoint);
+    Debug.Log("NextJoint: " + NextJoint);
+    Debug.Log("Direction: " + Direction);
+
+    Debug.Log("Length: " + Length);
+    Debug.Log("Width: " + Width);
+
+    Debug.Log("Rotation: " + Rotation);
+    Debug.Log("Basis: " + basis);
+
+  }
 }
