@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestRig : MonoBehaviour
 {
 	public GameObject RHand;
-
+	
 
 	// Start is called before the first frame update
 	void Start()
