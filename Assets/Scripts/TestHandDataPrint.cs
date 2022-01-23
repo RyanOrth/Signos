@@ -416,4 +416,10 @@ public class TestHandDataPrint : MonoBehaviour
 		Debug.Log("Basis: " + basis);
 
 	}
+
+	Dictionary<string, object> GenerateSignData(Hand hand)
+	{
+		Dictionary<string, object> signData = new Dictionary<string, object>();
+		return signData;
+	}
 }
