@@ -174,13 +174,13 @@ public class CheckLetter : MonoBehaviour
 	// }
 
 	float floatTolerance = 0.5f;
-	float Confidence(Hand hand)
+	float Confidence(Hand hand, string letter)
 	{
 		int totalScore = 0;
 		int positiveMatchScore = 0;
 		int negativeMatchScore = 0;
 
-		Dictionary<string, float> confidenceData = LoadJson();
+		Dictionary<string, float> confidenceData = LoadJson(letter);
 		Dictionary<string, float> recordedData = dataPrinter.GenerateSignData(hand);
 		foreach (var key in confidenceData.Keys)
 		{
