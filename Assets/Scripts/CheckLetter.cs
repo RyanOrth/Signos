@@ -5,7 +5,7 @@ using Leap.Unity;
 using Leap;
 using TMPro;
 
-
+using Newtonsoft.Json;
 
 public class CheckLetter : MonoBehaviour
 {
@@ -139,12 +139,22 @@ public class CheckLetter : MonoBehaviour
 	// {
 	// 	List<Finger> fingers = hand.Fingers;
 	// 	float[] tipToKnuckle = new float[4];
-	// 	float[][] 
+	// 	// float[][] 
 	// 	for (int digit = 1; digit < tipToKnuckle.Length; digit++)
 	// 	{
 	// 		tipToKnuckle[digit - 1] = fingers[digit].TipPosition.DistanceTo(fingers[digit].Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint);
 	// 	}
 
 	// }
+
+	float LetterCConfidence(Hand hand)
+	{
+		float totalScore = 0f;
+
+
+
+
+		return totalScore;
+	}
 
 }
