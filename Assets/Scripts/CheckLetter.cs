@@ -224,8 +224,17 @@ public class CheckLetter : MonoBehaviour
 				negativeMatchScore++;
 			}
 		}
+		switch (letter)
+		{
 
-		return (positiveMatchScore - min) / (max - min);
+			case "C-Right":
+				return (positiveMatchScore - min) / (max - min);
+			case "D-Right":
+				return (positiveMatchScore - 15) / (40 - 15);
+			case "E-Right":
+				return (positiveMatchScore - 10) / (10 - 10);
+		}
+
 	}
 
 }
