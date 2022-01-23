@@ -28,7 +28,7 @@ public class CheckLetter : MonoBehaviour
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
 		print(textBox.text);
-		foreach (KeyValuePair<string, float> item in LoadJson("C"))
+		foreach (KeyValuePair<string, float> item in LoadJson("C-Right"))
 		{
 			print(item.Key + " = " + item.Value);
 		}
@@ -73,7 +73,7 @@ public class CheckLetter : MonoBehaviour
 			case Handedness.Right:
 				if (rightHand != null)
 				{
-					textBox.text = "" + Confidence(rightHand, "C");
+					textBox.text = "" + Confidence(rightHand, "C-Right");
 				}
 				// textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
 				// + (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,

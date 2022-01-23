@@ -1,5 +1,5 @@
 {
-	"C":{
+	"C-Right": {
 		"HandId": 6.7611940298507465,
 		"HandConfidence": 1.0,
 		"HandPalmNormalPitch": -0.5306474136119399,
@@ -425,5 +425,4 @@
 		"PinkyDistalRotationZ": 0.080597014925373,
 		"PinkyDistalRotationW": 0.5649253731343288
 	}
-
 }
