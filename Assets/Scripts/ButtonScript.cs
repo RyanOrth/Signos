@@ -10,6 +10,7 @@ public class ButtonScript : MonoBehaviour
     public Animator animator;
     public GameObject progressBar;
     public GameObject handRender;
+    public GameObject handSettings;
 
     public void StartGame()
     { 
@@ -31,5 +32,30 @@ public class ButtonScript : MonoBehaviour
         transform.parent.gameObject.SetActive(false);
         progressBar.SetActive(!progressBar.activeSelf);
         handRender.SetActive(!handRender.activeSelf);
+    }
+
+    public void ChangeHandSelect()
+    {
+        handSettings.SetActive(!handSettings.activeSelf);
+    }
+
+    public void LowPolyHandSelect()
+    {
+
+    }
+
+    public void SkeletonHandSelect()
+    {
+
+    }
+
+    public void GlowHandSelect()
+    {
+
+    }
+
+    public void GhostHandSelect()
+    {
+
     }
 }
