@@ -64,7 +64,16 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = LetterAConfidence(rightHand).ToString();
+					textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
+					+ (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
+					+ "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
+					Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
