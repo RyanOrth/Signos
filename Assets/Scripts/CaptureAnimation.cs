@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
 
-public class HierarchyRecorder : MonoBehaviour
+public class CaptureAnimation : MonoBehaviour
 {
     // The clip the recording is going to be saved to.
     public AnimationClip clip;
