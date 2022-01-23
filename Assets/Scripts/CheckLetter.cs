@@ -27,7 +27,7 @@ public class CheckLetter : MonoBehaviour
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
 		print(textBox.text);
-		foreach (KeyValuePair<string, object> item in LoadJson())
+		foreach (KeyValuePair<string, float> item in LoadJson())
 		{
 			print(item.Key + " = " + item.Value);
 		}
@@ -97,13 +97,13 @@ public class CheckLetter : MonoBehaviour
 
 
 	}
-	Dictionary<string, object> LoadJson()
+	Dictionary<string, float> LoadJson()
 	{
-		Dictionary<string, object> data;
+		Dictionary<string, float> data;
 		using (StreamReader r = new StreamReader("Assets/Resources/Letters.json"))
 		{
 			string json = r.ReadToEnd();
-			data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+			data = JsonConvert.DeserializeObject<Dictionary<string, float>>(json);
 		}
 		return data;
 	}
@@ -172,14 +172,68 @@ public class CheckLetter : MonoBehaviour
 
 	// }
 
-	float LetterCConfidence(Hand hand)
+	float floatTolerance = 0.5f;
+	float Confidence(Hand hand)
 	{
-		float totalScore = 0f;
+		int totalScore = 0;
+		int positiveMatchScore = 0;
+		int negativeMatchScore = 0;
 
+		Dictionary<string, float> confidenceData = LoadJson();
+		Dictionary<string, float> recordedData = GenerateSignData(hand);
+		foreach (var key in confidenceData.Keys)
+		{
+			float confidenceFloat = confidenceData[key];
+			float recordedFloat = recordedData[key];
 
+			if (confidenceFloat == 0f)
+			{
+				if (recordedFloat == 0f)
+				{
+					positiveMatchScore++;
+				}
+				else
+				{
+					negativeMatchScore++;
+				}
+			}
+			else if (confidenceFloat == 1f)
+			{
+				if (recordedFloat == 1f)
+				{
+					positiveMatchScore++;
+				}
+				else
+				{
+					negativeMatchScore++;
+				}
+			}
+			else if ((confidenceFloat - floatTolerance) <= recordedFloat && recordedFloat <= (confidenceFloat + floatTolerance))
+			{
+				positiveMatchScore++;
+			}
+			else
+			{
+				negativeMatchScore++;
+			}
+		}
 
+		if (positiveMatchScore >= negativeMatchScore)
+		{
+			totalScore = positiveMatchScore - negativeMatchScore;
+			totalScore = (totalScore - negativeMatchScore) / (positiveMatchScore - negativeMatchScore);
+			return (float)totalScore;
+		}
+		else
+		{
+			return (float)totalScore;
+		}
+	}
 
-		return totalScore;
+	Dictionary<string, float> GenerateSignData(Hand hand)
+	{
+		Dictionary<string, float> recordedData = new Dictionary<string, float>();
+		return recordedData;
 	}
 
 }
