@@ -17,4 +17,9 @@ public class ButtonScript : MonoBehaviour
     {
         panel.SetActive(!panel.activeSelf);
     }
+
+    public void MenuReturn()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
