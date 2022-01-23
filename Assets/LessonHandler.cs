@@ -17,26 +17,26 @@ public class LessonHandler : MonoBehaviour
 	Hand rightHand;
 	Hand leftHand;
 	public Slider slider;
-    public Animator animator;
-    public GameObject renderingSetup;
-    public GameObject completedPanel;
-    public GameObject textBox;
-    public bool speedMode = false;
-    private bool correctSign;
-    private float totalTimeCorrect = 0;
+	public Animator animator;
+	public GameObject renderingSetup;
+	public GameObject completedPanel;
+	public GameObject textBox;
+	public bool speedMode = false;
+	private bool correctSign;
+	private float totalTimeCorrect = 0;
 
-    public enum Lesson
-    {
+	public enum Lesson
+	{
 		A,
 		B,
 		C,
 		D,
 		E,
 		Completed,
-    };
+	};
 
-    public Lesson currentLesson = Lesson.A;
-	
+	public Lesson currentLesson = Lesson.A;
+
 	public enum Handedness
 	{
 		Right,
@@ -45,11 +45,11 @@ public class LessonHandler : MonoBehaviour
 	public Handedness handedness;
 	// Start is called before the first frame update
 	void Start()
-    {
-        textBox.GetComponent<Text>().text = currentLesson.ToString();
-        // textBox = GetComponent<TMPro.TextMeshPro>();
-        // print(textBox.text);
-    }
+	{
+		textBox.GetComponent<Text>().text = currentLesson.ToString();
+		// textBox = GetComponent<TMPro.TextMeshPro>();
+		// print(textBox.text);
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -83,33 +83,38 @@ public class LessonHandler : MonoBehaviour
 				throw new System.Exception("Bad Hand Count");
 		}
 
+		float lessonTolerance = 85f;
+
 		switch (currentLesson)
 		{
 			case Lesson.A:
-                if (rightHand != null)
-                { 
-                    slider.value = LetterAConfidence(rightHand) * 100;
-                }
-                // if (leftHand != null)
-                // {
-                //     slider.value = Confidence(leftHand, "A-Left") * 100;
-                // }
+				if (rightHand != null)
+				{
+					slider.value = LetterAConfidence(rightHand) * 100;
+					lessonTolerance = 75f;
+				}
+				// if (leftHand != null)
+				// {
+				//     slider.value = Confidence(leftHand, "A-Left") * 100;
+				// }
 
-                break;
+				break;
 			case Lesson.B:
-                if (rightHand != null)
-                {
-                    slider.value = LetterBConfidence(rightHand) * 100;
-                }
-                // if (leftHand != null)
-                // {
-                //     slider.value = Confidence(leftHand, "B-Left") * 100;
-                // }
+				if (rightHand != null)
+				{
+					slider.value = LetterBConfidence(rightHand) * 100;
+					lessonTolerance = 75f;
+				}
+				// if (leftHand != null)
+				// {
+				//     slider.value = Confidence(leftHand, "B-Left") * 100;
+				// }
 				break;
 			case Lesson.C:
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "C-Right") * 100;
+					lessonTolerance = 60f;
 				}
 				/*if (leftHand != null)
 				{
@@ -117,59 +122,64 @@ public class LessonHandler : MonoBehaviour
 				}*/
 				break;
 			case Lesson.D:
-				/*if (rightHand != null)
+				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "D-Right") * 100;
-				}*/
+					lessonTolerance = 45f;
+				}
 				/*if (leftHand != null)
 				{
 					slider.value = Confidence(leftHand, "D-Left") * 100;
 				}*/
+				break;
 			case Lesson.E:
-				/*if (rightHand != null)
+				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "E-Right") * 100;
-				}*/
+					lessonTolerance = 60f;
+				}
 				/*if (leftHand != null)
 				{
 					slider.value = Confidence(leftHand, "E-Left") * 100;
 				}*/
-			case Lesson.Completed:
-            default:
-                completedPanel.SetActive(true);
 				break;
-        }
+			case Lesson.Completed:
+			default:
+				completedPanel.SetActive(true);
+				break;
+		}
 
-        if (slider.value > 85.0f && correctSign)
-        {
-            totalTimeCorrect += Time.deltaTime;
-        }
-        else if (slider.value > 85.0f)
-        {
-            correctSign = true;
-        }
-        else
-        {
-            totalTimeCorrect = 0;
-            correctSign = false;
-        }
+		if (slider.value > lessonTolerance && correctSign)
+		{
+			totalTimeCorrect += Time.deltaTime;
+		}
+		else if (slider.value > lessonTolerance)
+		{
+			correctSign = true;
+		}
+		else
+		{
+			totalTimeCorrect = 0;
+			correctSign = false;
+		}
 
-		if ( totalTimeCorrect > 3 && !speedMode)
-        {
-            currentLesson++;
-            totalTimeCorrect = 0;
-            slider.value = 0;
+		if (totalTimeCorrect > 3 && !speedMode)
+		{
+			currentLesson++;
+			totalTimeCorrect = 0;
+			slider.value = 0;
 			animator.SetInteger("number of lessons", currentLesson.indexOf());
-   //          renderingSetup.SetActive(false);
+			//          renderingSetup.SetActive(false);
 			// renderingSetup.SetActive(true);
 
-        } else if (correctSign && speedMode)
-        {
-            currentLesson++;
-            slider.value = 0;
-            animator.SetInteger("Lesson", currentLesson.indexOf());
 		}
-        textBox.GetComponent<Text>().text = currentLesson.ToString();
+		else if (correctSign && speedMode)
+		{
+			currentLesson++;
+			slider.value = 0;
+			animator.SetInteger("Lesson", currentLesson.indexOf());
+		}
+		textBox.GetComponent<Text>().text = currentLesson.ToString();
 		// if (Input.GetKeyDown(KeyCode.A))
 		// {
 		// 	print("A confd: " + LetterAConfidence(rightHand).ToString());
@@ -301,7 +311,16 @@ public class LessonHandler : MonoBehaviour
 			}
 		}
 
-		return (positiveMatchScore - min) / (max - min);
+		switch (letter)
+		{
+			case "C-Right":
+				return (positiveMatchScore - min) / (max - min);
+			case "D-Right":
+				return (positiveMatchScore - 15f) / (40f - 15f);
+			case "E-Right":
+				return (positiveMatchScore - 16f) / (37f - 16f);
+		}
+		return 0.0f;
 	}
 
 	public Dictionary<string, float> GenerateSignData(Hand hand)
