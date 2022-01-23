@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -60,21 +61,21 @@ public class ButtonScript : MonoBehaviour
 
     public void LowPolyHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "0");
     }
 
     public void SkeletonHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "1");
     }
 
     public void GlowHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "2");
     }
 
     public void GhostHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "3");
     }
 }
