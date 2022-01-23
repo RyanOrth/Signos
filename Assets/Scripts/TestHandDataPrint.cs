@@ -187,6 +187,60 @@ public class TestHandDataPrint : MonoBehaviour
 	Dictionary<string, object> GenerateSignData(Hand hand)
 	{
 		Dictionary<string, object> signData = new Dictionary<string, object>();
+
+		//Hand Data
+
+		signData.Add("HandId", hand.Id);
+		signData.Add("HandConfidence", hand.Confidence);
+
+		signData.Add("HandPalmPitch", hand.PalmNormal.Pitch);
+		signData.Add("HandPalmRoll", hand.PalmNormal.Roll);
+		signData.Add("HandPalmYaw", hand.PalmNormal.Yaw);
+		signData.Add("HandPalmDirectionRoll", hand.Direction.Roll);
+
+		signData.Add("HandPalmPosition", hand.PalmPosition);
+		signData.Add("HandPalmVelocity", hand.PalmVelocity);
+		signData.Add("HandPalmNormal", hand.PalmNormal);
+		signData.Add("HandFingersDirection", hand.Direction);
+
+		signData.Add("HandRotation", hand.Rotation);
+
+		signData.Add("GrabStrength", hand.GrabStrength);
+		signData.Add("GrabAngle", hand.GrabAngle);
+
+		signData.Add("PinchDistance", hand.PinchDistance);
+		signData.Add("PinchStrength", hand.PinchStrength);
+
+		signData.Add("PalmWidth", hand.PalmWidth);
+
+		signData.Add("StabilizedPalmPosition", hand.StabilizedPalmPosition);
+
+		signData.Add("TimeVisible", hand.TimeVisible);
+
+		signData.Add("HandWristPosition", hand.WristPosition);
+
+		for (int digit = 0; digit < 5; digit++)
+		{
+			Finger finger = hand.Fingers[digit];
+
+			signData.Add("FingerId", finger.Id);
+			signData.Add("FingerType", finger.Type);
+			signData.Add("HandId", finger.HandId);
+
+			signData.Add("TipPosition", finger.TipPosition);
+			signData.Add("Direction", finger.Direction);
+
+			signData.Add("Width", finger.Width);
+			signData.Add("Length", finger.Length);
+
+			signData.Add("IsExtended", finger.IsExtended);
+			signData.Add("TimeVisible", finger.TimeVisible);
+
+			// for (Bone.BoneType boneIndex in ){
+			// 	Bone bone = finger.Bone(boneIndex);
+			// }
+		}
+
 		return signData;
 	}
 }
