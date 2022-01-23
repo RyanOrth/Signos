@@ -11,6 +11,7 @@ using System.IO;
 public class CheckLetter : MonoBehaviour
 {
 	public LeapServiceProvider leapProvider;
+	public TestHandDataPrint dataPrinter;
 	Frame current;
 	List<Hand> hands;
 	Hand rightHand;
@@ -27,7 +28,7 @@ public class CheckLetter : MonoBehaviour
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
 		print(textBox.text);
-		foreach (KeyValuePair<string, float> item in LoadJson())
+		foreach (KeyValuePair<string, float> item in LoadJson("C"))
 		{
 			print(item.Key + " = " + item.Value);
 		}
@@ -97,15 +98,15 @@ public class CheckLetter : MonoBehaviour
 
 
 	}
-	Dictionary<string, float> LoadJson()
+	Dictionary<string, float> LoadJson(string letter)
 	{
-		Dictionary<string, float> data;
+		Dictionary<string, Dictionary<string, float>> data;
 		using (StreamReader r = new StreamReader("Assets/Resources/Letters.json"))
 		{
 			string json = r.ReadToEnd();
-			data = JsonConvert.DeserializeObject<Dictionary<string, float>>(json);
+			data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, float>>>(json);
 		}
-		return data;
+		return data[letter];
 	}
 	float LetterAConfidence(Hand hand)
 	{
@@ -173,16 +174,17 @@ public class CheckLetter : MonoBehaviour
 	// }
 
 	float floatTolerance = 0.5f;
-	float Confidence(Hand hand)
+	float Confidence(Hand hand, string letter)
 	{
 		int totalScore = 0;
 		int positiveMatchScore = 0;
 		int negativeMatchScore = 0;
 
-		Dictionary<string, float> confidenceData = LoadJson();
-		Dictionary<string, float> recordedData = GenerateSignData(hand);
+		Dictionary<string, float> confidenceData = LoadJson(letter);
+		Dictionary<string, float> recordedData = dataPrinter.GenerateSignData(hand);
 		foreach (var key in confidenceData.Keys)
 		{
+
 			float confidenceFloat = confidenceData[key];
 			float recordedFloat = recordedData[key];
 
@@ -228,12 +230,6 @@ public class CheckLetter : MonoBehaviour
 		{
 			return (float)totalScore;
 		}
-	}
-
-	Dictionary<string, float> GenerateSignData(Hand hand)
-	{
-		Dictionary<string, float> recordedData = new Dictionary<string, float>();
-		return recordedData;
 	}
 
 }
