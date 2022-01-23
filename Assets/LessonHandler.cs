@@ -112,6 +112,7 @@ public class LessonHandler : MonoBehaviour
 				{
 					slider.value = Confidence(leftHand, "C-Left") * 100;
 				}*/
+				break;
 			case Lesson.D:
 				/*if (rightHand != null)
 				{
