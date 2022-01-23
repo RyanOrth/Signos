@@ -22,4 +22,9 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void CloseModeSelect()
+    {
+        transform.parent.gameObject.SetActive(false);
+    }
 }
