@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class ButtonScript : MonoBehaviour
 {
     public GameObject panel;
+    public Animator animator;
+    public GameObject progressBar;
+    public GameObject handRender;
 
     public void StartGame()
     { 
@@ -21,5 +24,12 @@ public class ButtonScript : MonoBehaviour
     public void MenuReturn()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void CloseModeSelect()
+    {
+        transform.parent.gameObject.SetActive(false);
+        progressBar.SetActive(!progressBar.activeSelf);
+        handRender.SetActive(!handRender.activeSelf);
     }
 }
