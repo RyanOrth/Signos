@@ -4,7 +4,7 @@ using UnityEngine;
 using Leap.Unity;
 using Leap;
 using TMPro;
-
+using UnityEngine.UI;
 
 
 public class CheckLetter : MonoBehaviour
@@ -15,6 +15,7 @@ public class CheckLetter : MonoBehaviour
 	Hand rightHand;
 	Hand leftHand;
 	public TMP_Text textBox;
+    public Slider slider;
 	public enum Handedness
 	{
 		Right,
@@ -64,11 +65,11 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = LetterBConfidence(rightHand).ToString();
+					slider.value = LetterBConfidence(rightHand) * 100;
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
-					textBox.text = LetterAConfidence(leftHand).ToString();
+                    slider.value = LetterAConfidence(leftHand) * 100;
 				break;
 		}
 		if (Input.GetKeyDown(KeyCode.A))
