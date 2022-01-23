@@ -429,9 +429,9 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("HandId", hand.Id);
 		signData.Add("HandConfidence", hand.Confidence);
 
-		signData.Add("HandPalmPitch", hand.PalmNormal.Pitch);
-		signData.Add("HandPalmRoll", hand.PalmNormal.Roll);
-		signData.Add("HandPalmYaw", hand.PalmNormal.Yaw);
+		signData.Add("HandPalmNormalPitch", hand.PalmNormal.Pitch);
+		signData.Add("HandPalmNormalRoll", hand.PalmNormal.Roll);
+		signData.Add("HandPalmNormalYaw", hand.PalmNormal.Yaw);
 		signData.Add("HandPalmDirectionRoll", hand.Direction.Roll);
 
 		signData.Add("HandPalmPositionX", hand.PalmPosition.x - palmPosition.x);
@@ -443,6 +443,10 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("HandPalmNormalX", hand.PalmNormal.x - palmPosition.x);
 		signData.Add("HandPalmNormalY", hand.PalmNormal.y - palmPosition.y);
 		signData.Add("HandPalmNormalZ", hand.PalmNormal.z - palmPosition.z);
+
+		signData.Add("HandDirectionX", hand.Direction.x);
+		signData.Add("HandDirectionY", hand.Direction.y);
+		signData.Add("HandDirectionZ", hand.Direction.z);
 
 		localRot = (new Quaternion(hand.Rotation.x, hand.Rotation.y, hand.Rotation.z, hand.Rotation.w)) * Quaternion.Inverse(rotation);
 

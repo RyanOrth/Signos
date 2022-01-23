@@ -72,16 +72,21 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
-					+ (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
-					+ "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
-					Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
+				{
+					textBox.text = "" + Confidence(rightHand, "C");
+				}
+				// textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
+				// + (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
+				// + "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
+				// Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
+
+
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
@@ -161,32 +166,29 @@ public class CheckLetter : MonoBehaviour
 		return totalScore;
 	}
 
-	// float LetterCConfidence(Hand hand)
-	// {
-	// 	List<Finger> fingers = hand.Fingers;
-	// 	float[] tipToKnuckle = new float[4];
-	// 	// float[][] 
-	// 	for (int digit = 1; digit < tipToKnuckle.Length; digit++)
-	// 	{
-	// 		tipToKnuckle[digit - 1] = fingers[digit].TipPosition.DistanceTo(fingers[digit].Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint);
-	// 	}
-
-	// }
-
-	float floatTolerance = 0.5f;
+	public float floatTolerance = 0.1f;
+	public float max = 40f;
+	public float min = 10f;
 	float Confidence(Hand hand, string letter)
 	{
-		int totalScore = 0;
 		int positiveMatchScore = 0;
 		int negativeMatchScore = 0;
+		float recordedFloat;
 
 		Dictionary<string, float> confidenceData = LoadJson(letter);
 		Dictionary<string, float> recordedData = dataPrinter.GenerateSignData(hand);
 		foreach (var key in confidenceData.Keys)
 		{
-
 			float confidenceFloat = confidenceData[key];
-			float recordedFloat = recordedData[key];
+			try
+			{
+				recordedFloat = recordedData[key];
+			}
+			catch
+			{
+				throw new System.Exception(key);
+			}
+
 
 			if (confidenceFloat == 0f)
 			{
@@ -210,7 +212,7 @@ public class CheckLetter : MonoBehaviour
 					negativeMatchScore++;
 				}
 			}
-			else if ((confidenceFloat - floatTolerance) <= recordedFloat && recordedFloat <= (confidenceFloat + floatTolerance))
+			else if (confidenceFloat <= (recordedFloat * (1 + floatTolerance)) && (recordedFloat * (1 - floatTolerance)) <= confidenceFloat)
 			{
 				positiveMatchScore++;
 			}
@@ -220,16 +222,7 @@ public class CheckLetter : MonoBehaviour
 			}
 		}
 
-		if (positiveMatchScore >= negativeMatchScore)
-		{
-			totalScore = positiveMatchScore - negativeMatchScore;
-			totalScore = (totalScore - negativeMatchScore) / (positiveMatchScore - negativeMatchScore);
-			return (float)totalScore;
-		}
-		else
-		{
-			return (float)totalScore;
-		}
+		return (positiveMatchScore - min) / (max - min);
 	}
 
 }
