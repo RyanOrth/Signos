@@ -28,10 +28,24 @@ public class TestHandDataPrint : MonoBehaviour
 			//   PrintHandData(hands[i], handName);
 			// }
 			RecordData(hands[0]);
+			float myFloat = LetterBConfidence(hands[0]);
 
 		}
 	}
 	public bool wroteYet = false;
+
+	float LetterBConfidence(Hand hand)
+	{
+		List<Finger> fingers = hand.Fingers;
+		Vector handDirection = hand.Direction;
+		Debug.Log("Hand Direction" + handDirection);
+		for (int digit = 1; digit < 5; digit++)
+		{
+			Debug.Log("Finger " + digit + " " + fingers[digit - 1].Direction);
+		}
+		return 0;
+	}
+
 	void RecordData(Hand hand)
 	{
 		Debug.Log("Record Data Function");

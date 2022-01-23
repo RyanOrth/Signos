@@ -80,9 +80,12 @@ public class CheckLetter : MonoBehaviour
 					textBox.text = LetterAConfidence(leftHand).ToString();
 				break;
 		}
+		if (Input.GetKeyDown(KeyCode.A))
+		{
+			print("A confd: " + LetterAConfidence(rightHand).ToString());
+			print("B confd: " + LetterBConfidence(rightHand).ToString());
+		}
 
-		// if (Input.GetKeyDown(KeyCode.KeypadEnter))
-		// print("A confd: " + LetterAConfidence(rightHand).ToString());
 
 
 
@@ -112,6 +115,34 @@ public class CheckLetter : MonoBehaviour
 		// return totalScore;
 	}
 
+	float LetterBConfidence(Hand hand)
+	{
+		List<Finger> fingers = hand.Fingers;
+		float totalScore = 0f;
+		float fingersStraight = 0f;
+		float fingersTogether = 0f;
+
+		for (int digit = 1; digit < 5; digit++)
+		{
+			fingersStraight = fingers[digit - 1].Bone(Bone.BoneType.TYPE_DISTAL).Direction.Dot(fingers[digit - 1].Bone(Bone.BoneType.TYPE_METACARPAL).Direction);
+		}
+		fingersStraight = (fingersStraight - -0.85f) / (1f - -0.85f);
+
+		for (int digit = 2; digit < 5; digit++)
+		{
+			fingersTogether = fingers[digit - 1].Bone(Bone.BoneType.TYPE_DISTAL).Direction.Cross(fingers[digit].Bone(Bone.BoneType.TYPE_DISTAL).Direction).Magnitude;
+		}
+		fingersTogether = 1 - (fingersTogether - 0.03f) / (0.5f - 0.03f);
+
+		Vector thumbVector = hand.Direction.Normalized.Cross(fingers[0].Bone(Bone.BoneType.TYPE_DISTAL).Direction);
+		float thumbVectorScore = hand.PalmNormal.Dot(thumbVector);  //Score for thumb across palm
+		thumbVectorScore = 1 - (thumbVectorScore - -0.82f) / (0.80f - -0.82f);
+
+		totalScore += 0.50f * fingersStraight;
+		totalScore += 0.15f * fingersTogether;
+		totalScore += 0.35f * thumbVectorScore;
+		return totalScore;
+	}
 
 	// float LetterCConfidence(Hand hand)
 	// {
