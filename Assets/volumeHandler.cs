@@ -10,9 +10,10 @@ public class volumeHandler : MonoBehaviour
     {
         if (System.IO.File.Exists(Application.persistentDataPath + "/volumeLevel.txt"))
         {
-            gameObject.GetComponent<AudioSource>().volume = Convert.ToSingle(System.IO.File.ReadAllText(Application.persistentDataPath + "/volumeLevel.txt"));
+            gameObject.GetComponent<AudioSource>().volume =
+                Convert.ToSingle(System.IO.File.ReadAllText(Application.persistentDataPath + "/volumeLevel.txt"));
         }
-    }  
+    }
 
     // Update is called once per frame
     void Update()
