@@ -12,6 +12,7 @@ public class ScaleHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         animator.runtimeAnimatorController = runtimeAnimatorController;
+        
     }
 
     // Update is called once per frame

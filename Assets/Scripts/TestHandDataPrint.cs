@@ -434,12 +434,22 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("HandPalmYaw", hand.PalmNormal.Yaw);
 		signData.Add("HandPalmDirectionRoll", hand.Direction.Roll);
 
-		signData.Add("HandPalmPosition", hand.PalmPosition);
-		signData.Add("HandPalmVelocity", hand.PalmVelocity);
-		signData.Add("HandPalmNormal", hand.PalmNormal);
-		signData.Add("HandFingersDirection", hand.Direction);
+		signData.Add("HandPalmPositionX", hand.PalmPosition.x - palmPosition.x);
+		signData.Add("HandPalmPositionY", hand.PalmPosition.y - palmPosition.y);
+		signData.Add("HandPalmPositionZ", hand.PalmPosition.z - palmPosition.z);
+		signData.Add("HandPalmVelocityX", hand.PalmVelocity.x);
+		signData.Add("HandPalmVelocityY", hand.PalmVelocity.y);
+		signData.Add("HandPalmVelocityZ", hand.PalmVelocity.z);
+		signData.Add("HandPalmNormalX", hand.PalmNormal.x - palmPosition.x);
+		signData.Add("HandPalmNormalY", hand.PalmNormal.y - palmPosition.y);
+		signData.Add("HandPalmNormalZ", hand.PalmNormal.z - palmPosition.z);
 
-		signData.Add("HandRotation", hand.Rotation);
+		localRot = (new Quaternion(hand.Rotation.x, hand.Rotation.y, hand.Rotation.z, hand.Rotation.w)) * Quaternion.Inverse(rotation);
+
+		signData.Add("HandRotationX", localRot.x);
+		signData.Add("HandRotationY", localRot.y);
+		signData.Add("HandRotationZ", localRot.z);
+		signData.Add("HandRotationW", localRot.w);
 
 		signData.Add("GrabStrength", hand.GrabStrength);
 		signData.Add("GrabAngle", hand.GrabAngle);
@@ -449,28 +459,107 @@ public class TestHandDataPrint : MonoBehaviour
 
 		signData.Add("PalmWidth", hand.PalmWidth);
 
-		signData.Add("StabilizedPalmPosition", hand.StabilizedPalmPosition);
+		signData.Add("StabilizedPalmPositionX", hand.StabilizedPalmPosition.x - palmPosition.x);
+		signData.Add("StabilizedPalmPositionY", hand.StabilizedPalmPosition.y - palmPosition.y);
+		signData.Add("StabilizedPalmPositionZ", hand.StabilizedPalmPosition.z - palmPosition.z);
 
 		signData.Add("TimeVisible", hand.TimeVisible);
 
-		signData.Add("HandWristPosition", hand.WristPosition);
+		signData.Add("HandWristPositionX", hand.WristPosition.x - palmPosition.x);
+		signData.Add("HandWristPositionY", hand.WristPosition.y - palmPosition.y);
+		signData.Add("HandWristPositionZ", hand.WristPosition.z - palmPosition.z);
 
 		//Thumb Data
 		int digit = 0;
 		Finger finger = hand.Fingers[digit];
 
-		signData.Add("FingerId", finger.Id);
-		signData.Add("FingerType", finger.Type);
-		signData.Add("HandId", finger.HandId);
+		signData.Add("ThumbDirectionX", finger.Direction.x);
+		signData.Add("ThumbDirectionY", finger.Direction.y);
+		signData.Add("ThumbDirectionZ", finger.Direction.z);
+		signData.Add("ThumbWidth", finger.Width);
+		signData.Add("ThumbLength", finger.Length);
+		signData.Add("ThumbIsExtended", finger.IsExtended);
 
-		signData.Add("TipPosition", finger.TipPosition);
-		signData.Add("Direction", finger.Direction);
+		signData.Add("ThumbMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
+		signData.Add("ThumbMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
+		signData.Add("ThumbMetacarpalLowerJointZ", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).z);
+		signData.Add("ThumbMetacarpalUpperJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint - palmPosition).x);
+		signData.Add("ThumbMetacarpalUpperJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint - palmPosition).y);
+		signData.Add("ThumbMetacarpalUpperJointZ", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint - palmPosition).z);
+		signData.Add("ThumbMetacarpalCenterX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).Center - palmPosition).x);
+		signData.Add("ThumbMetacarpalCenterY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).Center - palmPosition).y);
+		signData.Add("ThumbMetacarpalCenterZ", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).Center - palmPosition).z);
+		signData.Add("ThumbMetacarpalDirectionX", finger.Bone(Bone.BoneType.TYPE_METACARPAL).Direction.x);
+		signData.Add("ThumbMetacarpalDirectionY", finger.Bone(Bone.BoneType.TYPE_METACARPAL).Direction.y);
+		signData.Add("ThumbMetacarpalDirectionZ", finger.Bone(Bone.BoneType.TYPE_METACARPAL).Direction.z);
+		signData.Add("ThumbMetacarpalLength", finger.Bone(Bone.BoneType.TYPE_METACARPAL).Length);
+		signData.Add("ThumbMetacarpalWidth", finger.Bone(Bone.BoneType.TYPE_METACARPAL).Width);
+		localRot = (new Quaternion(finger.Bone(Bone.BoneType.TYPE_METACARPAL).Rotation.x, finger.Bone(Bone.BoneType.TYPE_METACARPAL).Rotation.y, finger.Bone(Bone.BoneType.TYPE_METACARPAL).Rotation.z, finger.Bone(Bone.BoneType.TYPE_METACARPAL).Rotation.w)) * Quaternion.Inverse(rotation);
+		signData.Add("ThumbMetacarpalRotationX", localRot.x);
+		signData.Add("ThumbMetacarpalRotationY", localRot.y);
+		signData.Add("ThumbMetacarpalRotationZ", localRot.z);
+		signData.Add("ThumbMetacarpalRotationW", localRot.w);
 
-		signData.Add("Width", finger.Width);
-		signData.Add("Length", finger.Length);
+		signData.Add("ThumbProximalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).PrevJoint - palmPosition).x);
+		signData.Add("ThumbProximalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).PrevJoint - palmPosition).y);
+		signData.Add("ThumbProximalLowerJointZ", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).PrevJoint - palmPosition).z);
+		signData.Add("ThumbProximalUpperJointX", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).NextJoint - palmPosition).x);
+		signData.Add("ThumbProximalUpperJointY", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).NextJoint - palmPosition).y);
+		signData.Add("ThumbProximalUpperJointZ", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).NextJoint - palmPosition).z);
+		signData.Add("ThumbProximalCenterX", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Center - palmPosition).x);
+		signData.Add("ThumbProximalCenterY", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Center - palmPosition).y);
+		signData.Add("ThumbProximalCenterZ", (finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Center - palmPosition).z);
+		signData.Add("ThumbProximalDirectionX", finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Direction.x);
+		signData.Add("ThumbProximalDirectionY", finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Direction.y);
+		signData.Add("ThumbProximalDirectionZ", finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Direction.z);
+		signData.Add("ThumbProximalLength", finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Length);
+		signData.Add("ThumbProximalWidth", finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Width);
+		localRot = (new Quaternion(finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x, finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y, finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z, finger.Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)) * Quaternion.Inverse(rotation);
+		signData.Add("ThumbProximalRotationX", localRot.x);
+		signData.Add("ThumbProximalRotationY", localRot.y);
+		signData.Add("ThumbProximalRotationZ", localRot.z);
+		signData.Add("ThumbProximalRotationW", localRot.w);
 
-		signData.Add("IsExtended", finger.IsExtended);
-		signData.Add("TimeVisible", finger.TimeVisible);
+		signData.Add("ThumbIntermediateLowerJointX", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).PrevJoint - palmPosition).x);
+		signData.Add("ThumbIntermediateLowerJointY", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).PrevJoint - palmPosition).y);
+		signData.Add("ThumbIntermediateLowerJointZ", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).PrevJoint - palmPosition).z);
+		signData.Add("ThumbIntermediateUpperJointX", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).NextJoint - palmPosition).x);
+		signData.Add("ThumbIntermediateUpperJointY", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).NextJoint - palmPosition).y);
+		signData.Add("ThumbIntermediateUpperJointZ", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).NextJoint - palmPosition).z);
+		signData.Add("ThumbIntermediateCenterX", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Center - palmPosition).x);
+		signData.Add("ThumbIntermediateCenterY", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Center - palmPosition).y);
+		signData.Add("ThumbIntermediateCenterZ", (finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Center - palmPosition).z);
+		signData.Add("ThumbIntermediateDirectionX", finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Direction.x);
+		signData.Add("ThumbIntermediateDirectionY", finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Direction.y);
+		signData.Add("ThumbIntermediateDirectionZ", finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Direction.z);
+		signData.Add("ThumbIntermediateLength", finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Length);
+		signData.Add("ThumbIntermediateWidth", finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Width);
+		localRot = (new Quaternion(finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Rotation.x, finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Rotation.y, finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Rotation.z, finger.Bone(Bone.BoneType.TYPE_INTERMEDIATE).Rotation.w)) * Quaternion.Inverse(rotation);
+		signData.Add("ThumbIntermediateRotationX", localRot.x);
+		signData.Add("ThumbIntermediateRotationY", localRot.y);
+		signData.Add("ThumbIntermediateRotationZ", localRot.z);
+		signData.Add("ThumbIntermediateRotationW", localRot.w);
+
+		signData.Add("ThumbDistalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_DISTAL).PrevJoint - palmPosition).x);
+		signData.Add("ThumbDistalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_DISTAL).PrevJoint - palmPosition).y);
+		signData.Add("ThumbDistalLowerJointZ", (finger.Bone(Bone.BoneType.TYPE_DISTAL).PrevJoint - palmPosition).z);
+		signData.Add("ThumbDistalUpperJointX", (finger.Bone(Bone.BoneType.TYPE_DISTAL).NextJoint - palmPosition).x);
+		signData.Add("ThumbDistalUpperJointY", (finger.Bone(Bone.BoneType.TYPE_DISTAL).NextJoint - palmPosition).y);
+		signData.Add("ThumbDistalUpperJointZ", (finger.Bone(Bone.BoneType.TYPE_DISTAL).NextJoint - palmPosition).z);
+		signData.Add("ThumbDistalCenterX", (finger.Bone(Bone.BoneType.TYPE_DISTAL).Center - palmPosition).x);
+		signData.Add("ThumbDistalCenterY", (finger.Bone(Bone.BoneType.TYPE_DISTAL).Center - palmPosition).y);
+		signData.Add("ThumbDistalCenterZ", (finger.Bone(Bone.BoneType.TYPE_DISTAL).Center - palmPosition).z);
+		signData.Add("ThumbDistalDirectionX", finger.Bone(Bone.BoneType.TYPE_DISTAL).Direction.x);
+		signData.Add("ThumbDistalDirectionY", finger.Bone(Bone.BoneType.TYPE_DISTAL).Direction.y);
+		signData.Add("ThumbDistalDirectionZ", finger.Bone(Bone.BoneType.TYPE_DISTAL).Direction.z);
+		signData.Add("ThumbDistalLength", finger.Bone(Bone.BoneType.TYPE_DISTAL).Length);
+		signData.Add("ThumbDistalWidth", finger.Bone(Bone.BoneType.TYPE_DISTAL).Width);
+		localRot = (new Quaternion(finger.Bone(Bone.BoneType.TYPE_DISTAL).Rotation.x, finger.Bone(Bone.BoneType.TYPE_DISTAL).Rotation.y, finger.Bone(Bone.BoneType.TYPE_DISTAL).Rotation.z, finger.Bone(Bone.BoneType.TYPE_DISTAL).Rotation.w)) * Quaternion.Inverse(rotation);
+		signData.Add("ThumbDistalRotationX", localRot.x);
+		signData.Add("ThumbDistalRotationY", localRot.y);
+		signData.Add("ThumbDistalRotationZ", localRot.z);
+		signData.Add("ThumbDistalRotationW", localRot.w);
+
 
 		//Index Data
 		digit = 1;
