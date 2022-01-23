@@ -478,7 +478,7 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("ThumbDirectionZ", finger.Direction.z);
 		signData.Add("ThumbWidth", finger.Width);
 		signData.Add("ThumbLength", finger.Length);
-		signData.Add("ThumbIsExtended", finger.IsExtended);
+		signData.Add("ThumbIsExtended", finger.IsExtended ? 1f : 0f);
 
 		signData.Add("ThumbMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
 		signData.Add("ThumbMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
@@ -570,7 +570,7 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("IndexDirectionZ", finger.Direction.z);
 		signData.Add("IndexWidth", finger.Width);
 		signData.Add("IndexLength", finger.Length);
-		signData.Add("IndexIsExtended", finger.IsExtended);
+		signData.Add("IndexIsExtended", finger.IsExtended ? 1f : 0f);
 
 		signData.Add("IndexMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
 		signData.Add("IndexMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
@@ -668,7 +668,7 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("MiddleDirectionZ", finger.Direction.z);
 		signData.Add("MiddleWidth", finger.Width);
 		signData.Add("MiddleLength", finger.Length);
-		signData.Add("MiddleIsExtended", finger.IsExtended);
+		signData.Add("MiddleIsExtended", finger.IsExtended ? 1f : 0f);
 
 		signData.Add("MiddleMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
 		signData.Add("MiddleMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
@@ -761,7 +761,7 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("RingDirectionZ", finger.Direction.z);
 		signData.Add("RingWidth", finger.Width);
 		signData.Add("RingLength", finger.Length);
-		signData.Add("RingIsExtended", finger.IsExtended);
+		signData.Add("RingIsExtended", finger.IsExtended ? 1f : 0f);
 
 		signData.Add("RingMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
 		signData.Add("RingMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
@@ -854,7 +854,7 @@ public class TestHandDataPrint : MonoBehaviour
 		signData.Add("PinkyDirectionZ", finger.Direction.z);
 		signData.Add("PinkyWidth", finger.Width);
 		signData.Add("PinkyLength", finger.Length);
-		signData.Add("PinkyIsExtended", finger.IsExtended);
+		signData.Add("PinkyIsExtended", finger.IsExtended ? 1f : 0f);
 
 		signData.Add("PinkyMetacarpalLowerJointX", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).x);
 		signData.Add("PinkyMetacarpalLowerJointY", (finger.Bone(Bone.BoneType.TYPE_METACARPAL).PrevJoint - palmPosition).y);
