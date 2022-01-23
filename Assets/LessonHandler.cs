@@ -20,6 +20,7 @@ public class LessonHandler : MonoBehaviour
     public Animator animator;
     public GameObject renderingSetup;
     public GameObject completedPanel;
+    public GameObject textBox;
     public bool speedMode = false;
     private bool correctSign;
     private float totalTimeCorrect = 0;
@@ -35,6 +36,7 @@ public class LessonHandler : MonoBehaviour
     };
 
     public Lesson currentLesson = Lesson.A;
+	
 	public enum Handedness
 	{
 		Right,
@@ -43,10 +45,11 @@ public class LessonHandler : MonoBehaviour
 	public Handedness handedness;
 	// Start is called before the first frame update
 	void Start()
-	{
-		// textBox = GetComponent<TMPro.TextMeshPro>();
-		// print(textBox.text);
-	}
+    {
+        textBox.GetComponent<Text>().text = currentLesson.ToString();
+        // textBox = GetComponent<TMPro.TextMeshPro>();
+        // print(textBox.text);
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -156,9 +159,9 @@ public class LessonHandler : MonoBehaviour
             currentLesson++;
             totalTimeCorrect = 0;
             slider.value = 0;
-			animator.SetInteger("Lesson", currentLesson.indexOf());
-            renderingSetup.SetActive(false);
-			renderingSetup.SetActive(true);
+			animator.SetInteger("number of lessons", currentLesson.indexOf());
+   //          renderingSetup.SetActive(false);
+			// renderingSetup.SetActive(true);
 
         } else if (correctSign && speedMode)
         {
@@ -166,17 +169,17 @@ public class LessonHandler : MonoBehaviour
             slider.value = 0;
             animator.SetInteger("Lesson", currentLesson.indexOf());
 		}
-
-        // if (Input.GetKeyDown(KeyCode.A))
-        // {
-        // 	print("A confd: " + LetterAConfidence(rightHand).ToString());
-        // 	print("B confd: " + LetterBConfidence(rightHand).ToString());
-        // }
-
-
+        textBox.GetComponent<Text>().text = currentLesson.ToString();
+		// if (Input.GetKeyDown(KeyCode.A))
+		// {
+		// 	print("A confd: " + LetterAConfidence(rightHand).ToString());
+		// 	print("B confd: " + LetterBConfidence(rightHand).ToString());
+		// }
 
 
-    }
+
+
+	}
 
 	float LetterAConfidence(Hand hand)
 	{

@@ -8,5 +8,5 @@ Signos features two modes for practicing sign language: Learn Mode and Speed Pra
 
 ## In-Progress Features
 * Add additional letters for Learn mode
-* Improve recording for more complex signs
-* Ability for users to add their own custom lessons to practice.
+* Improve recording for more complex signs (i.e. words)
+* Ability for users to add their own custom lessons to practice
