@@ -73,7 +73,7 @@ public class CheckLetter : MonoBehaviour
 			case Handedness.Right:
 				if (rightHand != null)
 				{
-					textBox.text = "" + Confidence(rightHand, "C-Right");
+					//textBox.text = "" + Confidence(rightHand, "C-Right");
 				}
 				// textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
 				// + (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
@@ -89,8 +89,10 @@ public class CheckLetter : MonoBehaviour
 
 				break;
 			case Handedness.Left:
-				if (leftHand != null)
-					textBox.text = LetterAConfidence(leftHand).ToString();
+				//if (leftHand != null)
+				//textBox.text = LetterAConfidence(leftHand).ToString();
+				break;
+			default:
 				break;
 		}
 		if (Input.GetKeyDown(KeyCode.A))
@@ -169,6 +171,7 @@ public class CheckLetter : MonoBehaviour
 	public float floatTolerance = 0.1f;
 	public float max = 40f;
 	public float min = 10f;
+
 	float Confidence(Hand hand, string letter)
 	{
 		int positiveMatchScore = 0;
