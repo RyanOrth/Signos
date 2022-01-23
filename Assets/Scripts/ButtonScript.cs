@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Leap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -88,5 +89,17 @@ public class ButtonScript : MonoBehaviour
 		skeletonHand.interactable = true;
 		glowHand.interactable = true;
 		ghostHand.interactable = false;
+	}
+
+	public void SkipLetter()
+	{
+		panel.GetComponent<LessonHandler>().currentLesson++;
+		panel.GetComponent<LessonHandler>().slider.value = 0;
+		panel.GetComponent<LessonHandler>().animator.SetInteger("number of lessons", panel.GetComponent<LessonHandler>().currentLesson.indexOf());
+		panel.GetComponent<LessonHandler>().textBox.GetComponent<Text>().text = panel.GetComponent<LessonHandler>().currentLesson.ToString();
+		if (panel.GetComponent<LessonHandler>().currentLesson.indexOf() > 4)
+		{
+			panel.GetComponent<LessonHandler>().completedPanel.SetActive(true);
+		}
 	}
 }
