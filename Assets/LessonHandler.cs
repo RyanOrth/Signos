@@ -125,7 +125,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "D-Right") * 100;
-					lessonTolerance = 45f;
+					lessonTolerance = 25f;
 				}
 				/*if (leftHand != null)
 				{
@@ -136,7 +136,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "E-Right") * 100;
-					lessonTolerance = 60f;
+					lessonTolerance = 50f;
 				}
 				/*if (leftHand != null)
 				{
@@ -163,7 +163,7 @@ public class LessonHandler : MonoBehaviour
 			correctSign = false;
 		}
 
-		if (totalTimeCorrect > 3 && !speedMode)
+		if (totalTimeCorrect > 1 && !speedMode)
 		{
 			currentLesson++;
 			totalTimeCorrect = 0;
