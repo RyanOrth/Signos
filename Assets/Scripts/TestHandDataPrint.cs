@@ -6,56 +6,69 @@ using Leap.Unity;
 
 public class TestHandDataPrint : MonoBehaviour
 {
-  Controller controller;
-  void Start()
-  {
+	Controller controller;
+	float HandPalmPitch;
+	float HandPalmYaw;
+	float HandPalmRoll;
+	float HandWristRot;
+	float HandDirectionPitch;
+	float pinch;
+	float HandPalmDirectionRoll;
+	float LeftHand;
+	float RightHand;
+	float DistanceBetweenHands;
+	Vector VectorHandPosRight;
+	Vector VectorHandPosLeft;
 
-  }
+	// Start is called before the first frame update
+	void Start()
+	{
 
-  void Update()
-  {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-      controller = new Controller();
-      Frame frame = controller.Frame();
-      List<Hand> hands = frame.Hands;
+	}
 
-      for (int i = 0; i < frame.Hands.Count; i++)
-      {
-        string handName = hands[i].IsRight ? "Right Hand" : "Left Hand";
-        PrintHandData(hands[i], handName);
-      }
-    }
-  }
+	// Update is called once per frame
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			controller = new Controller();
+			Frame frame = controller.Frame();
+			List<Hand> hands = frame.Hands;
 
-  void PrintHandData(Hand hand, string handName)
-  {
-    float confidence = hand.Confidence;
+			if (frame.Hands.Count > 0)
+			{
+				Hand firstHand = hands[0];
+				Hand secondHand = hands[1];
+			}
 
-    float HandPalmPitch = hand.PalmNormal.Pitch;
-    float HandPalmRoll = hand.PalmNormal.Roll;
-    float HandPalmYaw = hand.PalmNormal.Yaw;
-    float HandPalmDirectionRoll = hand.Direction.Roll;
+			HandPalmPitch = hands[0].PalmNormal.Pitch;
+			HandPalmRoll = hands[0].PalmNormal.Roll;
+			HandPalmYaw = hands[0].PalmNormal.Yaw;
 
-    Vector HandPalmPosition = hand.PalmPosition;
-    Vector HandPalmNormal = hand.PalmNormal;
-    Vector HandFingersDirection = hand.Direction;
+			VectorHandPosRight = hands[0].PalmPosition; //position right hand
+			VectorHandPosLeft = hands[1].PalmPosition; // position left hand
+
+			DistanceBetweenHands = VectorHandPosLeft.DistanceTo(VectorHandPosRight); //distance position between hands as float
+
+			RightHand = hands[0].PalmNormal.Roll; //clap right hand
+			LeftHand = hands[1].PalmNormal.Roll; // clap left hand
+
+			HandPalmDirectionRoll = hands[0].Direction.Roll; //stroke
+
+			pinch = hands[0].PinchStrength; //turn radio on
 
 
-    float pinch = hand.PinchStrength;
-    Vector HandWristPos = hand.WristPosition;
-
-    Debug.Log(handName + " Confidence: " + confidence);
-    Debug.Log(handName + " Pitch: " + HandPalmPitch);
-    Debug.Log(handName + " Roll: " + HandPalmRoll);
-    Debug.Log(handName + " Yaw: " + HandPalmYaw);
-    Debug.Log(handName + " PalmDirectionRoll: " + HandPalmDirectionRoll);
-
-    Debug.Log(handName + " PalmPosition: " + HandPalmPosition);
-    Debug.Log(handName + " PalmNormal: " + HandPalmNormal);
-    Debug.Log(handName + " FingersDirection: " + HandFingersDirection);
-
-    Debug.Log(handName + " Pinch: " + pinch);
-    Debug.Log(handName + " WristPos: " + HandWristPos);
-  }
+			Debug.Log("RightHand: " + RightHand);
+			Debug.Log("LeftHand: " + LeftHand);
+			Debug.Log("Pitch: " + HandPalmPitch);
+			Debug.Log("Roll: " + HandPalmRoll);
+			Debug.Log("Yaw: " + HandPalmYaw);
+			Debug.Log("Wrist: " + HandWristRot);
+			Debug.Log("Pinch: " + pinch);
+			Debug.Log("PalmdirectionRoll: " + HandPalmDirectionRoll);
+			Debug.Log("RightHandPos: " + VectorHandPosRight);
+			Debug.Log("LeftHandPos: " + VectorHandPosLeft);
+			Debug.Log("DistanceBetween: " + DistanceBetweenHands);
+		}
+	}
 }
