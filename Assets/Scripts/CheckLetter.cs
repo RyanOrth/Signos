@@ -22,7 +22,6 @@ public class CheckLetter : MonoBehaviour
 		Left,
 	};
 	public Handedness handedness;
-	public File json;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -101,7 +100,7 @@ public class CheckLetter : MonoBehaviour
 	Dictionary<string, object> LoadJson()
 	{
 		Dictionary<string, object> data;
-		using (StreamReader r = new StreamReader())
+		using (StreamReader r = new StreamReader("Assets/Resources/Letters.json"))
 		{
 			string json = r.ReadToEnd();
 			data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
