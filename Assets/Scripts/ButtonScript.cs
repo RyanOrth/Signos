@@ -17,6 +17,10 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("Prefab Making");
     }
 
+    public void ExitGame()
+    {
+        Application.Quit(-1);
+    }
     public void TogglePanel()
     {
         panel.SetActive(!panel.activeSelf);
@@ -27,11 +31,15 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void CloseModeSelect()
+    public void CloseModeSelect(bool speedMode)
     {
         transform.parent.gameObject.SetActive(false);
         progressBar.SetActive(!progressBar.activeSelf);
         handRender.SetActive(!handRender.activeSelf);
+        if (speedMode)
+        {
+            panel.GetComponent<LessonHandler>().speedMode = true;
+        }
     }
 
     public void ChangeHandSelect()
@@ -41,21 +49,21 @@ public class ButtonScript : MonoBehaviour
 
     public void LowPolyHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "0");
     }
 
     public void SkeletonHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "1");
     }
 
     public void GlowHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "2");
     }
 
     public void GhostHandSelect()
     {
-
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/handType.txt", "3");
     }
 }

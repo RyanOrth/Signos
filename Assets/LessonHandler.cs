@@ -18,6 +18,7 @@ public class LessonHandler : MonoBehaviour
 	public Slider slider;
     public Animator animator;
     public GameObject renderingSetup;
+    public GameObject completedPanel;
     public bool speedMode = false;
     private bool correctSign;
     private float totalTimeCorrect = 0;
@@ -106,7 +107,7 @@ public class LessonHandler : MonoBehaviour
 			case Lesson.E:
 			case Lesson.Completed:
             default:
-                //open panel thingy
+                completedPanel.SetActive(true);
 				break;
         }
 
