@@ -417,9 +417,9 @@ public class TestHandDataPrint : MonoBehaviour
 
 	}
 
-	Dictionary<string, object> GenerateSignData(Hand hand)
+	public Dictionary<string, float> GenerateSignData(Hand hand)
 	{
-		Dictionary<string, object> signData = new Dictionary<string, object>();
+		Dictionary<string, float> signData = new Dictionary<string, float>();
 
 		//Hand Data
 		Vector palmPosition = hand.PalmPosition;

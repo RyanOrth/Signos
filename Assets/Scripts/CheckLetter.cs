@@ -11,6 +11,7 @@ using System.IO;
 public class CheckLetter : MonoBehaviour
 {
 	public LeapServiceProvider leapProvider;
+	public TestHandDataPrint dataPrinter;
 	Frame current;
 	List<Hand> hands;
 	Hand rightHand;
@@ -180,9 +181,10 @@ public class CheckLetter : MonoBehaviour
 		int negativeMatchScore = 0;
 
 		Dictionary<string, float> confidenceData = LoadJson();
-		Dictionary<string, float> recordedData = GenerateSignData(hand);
+		Dictionary<string, float> recordedData = dataPrinter.GenerateSignData(hand);
 		foreach (var key in confidenceData.Keys)
 		{
+
 			float confidenceFloat = confidenceData[key];
 			float recordedFloat = recordedData[key];
 
@@ -228,12 +230,6 @@ public class CheckLetter : MonoBehaviour
 		{
 			return (float)totalScore;
 		}
-	}
-
-	Dictionary<string, float> GenerateSignData(Hand hand)
-	{
-		Dictionary<string, float> recordedData = new Dictionary<string, float>();
-		return recordedData;
 	}
 
 }
