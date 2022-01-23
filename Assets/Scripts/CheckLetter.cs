@@ -4,9 +4,9 @@ using UnityEngine;
 using Leap.Unity;
 using Leap;
 using TMPro;
-
 using Newtonsoft.Json;
-using UnityEngine.UI;
+using System.IO;
+
 
 public class CheckLetter : MonoBehaviour
 {
@@ -16,7 +16,6 @@ public class CheckLetter : MonoBehaviour
 	Hand rightHand;
 	Hand leftHand;
 	public TMP_Text textBox;
-    public Slider slider;
 	public enum Handedness
 	{
 		Right,
@@ -27,7 +26,13 @@ public class CheckLetter : MonoBehaviour
 	void Start()
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
-		// print(textBox.text);
+		print(textBox.text);
+		foreach (KeyValuePair<string, float> item in LoadJson())
+		{
+			print(item.Key + " = " + item.Value);
+		}
+
+
 	}
 
 	// Update is called once per frame
@@ -65,12 +70,21 @@ public class CheckLetter : MonoBehaviour
 		switch (handedness)
 		{
 			case Handedness.Right:
-                if (rightHand != null)
-                    slider.value = LetterAConfidence(rightHand) * 100;
+				if (rightHand != null)
+					textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
+					+ (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
+					+ "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
+					Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
-					slider.value = LetterAConfidence(leftHand) * 100;
+					textBox.text = LetterAConfidence(leftHand).ToString();
 				break;
 		}
 		if (Input.GetKeyDown(KeyCode.A))
@@ -83,7 +97,16 @@ public class CheckLetter : MonoBehaviour
 
 
 	}
-
+	Dictionary<string, float> LoadJson()
+	{
+		Dictionary<string, float> data;
+		using (StreamReader r = new StreamReader("Assets/Resources/Letters.json"))
+		{
+			string json = r.ReadToEnd();
+			data = JsonConvert.DeserializeObject<Dictionary<string, float>>(json);
+		}
+		return data;
+	}
 	float LetterAConfidence(Hand hand)
 	{
 		List<Finger> fingers = hand.Fingers;
@@ -149,14 +172,68 @@ public class CheckLetter : MonoBehaviour
 
 	// }
 
-	float LetterCConfidence(Hand hand)
+	float floatTolerance = 0.5f;
+	float Confidence(Hand hand)
 	{
-		float totalScore = 0f;
+		int totalScore = 0;
+		int positiveMatchScore = 0;
+		int negativeMatchScore = 0;
 
+		Dictionary<string, float> confidenceData = LoadJson();
+		Dictionary<string, float> recordedData = GenerateSignData(hand);
+		foreach (var key in confidenceData.Keys)
+		{
+			float confidenceFloat = confidenceData[key];
+			float recordedFloat = recordedData[key];
 
+			if (confidenceFloat == 0f)
+			{
+				if (recordedFloat == 0f)
+				{
+					positiveMatchScore++;
+				}
+				else
+				{
+					negativeMatchScore++;
+				}
+			}
+			else if (confidenceFloat == 1f)
+			{
+				if (recordedFloat == 1f)
+				{
+					positiveMatchScore++;
+				}
+				else
+				{
+					negativeMatchScore++;
+				}
+			}
+			else if ((confidenceFloat - floatTolerance) <= recordedFloat && recordedFloat <= (confidenceFloat + floatTolerance))
+			{
+				positiveMatchScore++;
+			}
+			else
+			{
+				negativeMatchScore++;
+			}
+		}
 
+		if (positiveMatchScore >= negativeMatchScore)
+		{
+			totalScore = positiveMatchScore - negativeMatchScore;
+			totalScore = (totalScore - negativeMatchScore) / (positiveMatchScore - negativeMatchScore);
+			return (float)totalScore;
+		}
+		else
+		{
+			return (float)totalScore;
+		}
+	}
 
-		return totalScore;
+	Dictionary<string, float> GenerateSignData(Hand hand)
+	{
+		Dictionary<string, float> recordedData = new Dictionary<string, float>();
+		return recordedData;
 	}
 
 }
