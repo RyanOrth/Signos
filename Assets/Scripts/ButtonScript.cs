@@ -10,7 +10,7 @@ public class ButtonScript : MonoBehaviour
 
     public void StartGame()
     { 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Prefab Making");
     }
 
     public void TogglePanel()
