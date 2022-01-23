@@ -72,16 +72,21 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
-					+ (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
-					+ "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
-					Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
-														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
+				{
+					textBox.text = "" + Confidence(rightHand, "C");
+				}
+				// textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
+				// + (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
+				// + "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
+				// Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+				// 									rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
+
+
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
@@ -179,14 +184,22 @@ public class CheckLetter : MonoBehaviour
 		int totalScore = 0;
 		int positiveMatchScore = 0;
 		int negativeMatchScore = 0;
+		float recordedFloat;
 
 		Dictionary<string, float> confidenceData = LoadJson(letter);
 		Dictionary<string, float> recordedData = dataPrinter.GenerateSignData(hand);
 		foreach (var key in confidenceData.Keys)
 		{
-
 			float confidenceFloat = confidenceData[key];
-			float recordedFloat = recordedData[key];
+			try
+			{
+				recordedFloat = recordedData[key];
+			}
+			catch
+			{
+				throw new System.Exception(key);
+			}
+
 
 			if (confidenceFloat == 0f)
 			{
