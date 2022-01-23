@@ -4,8 +4,9 @@ using UnityEngine;
 using Leap.Unity;
 using Leap;
 using TMPro;
-
 using Newtonsoft.Json;
+using System.IO;
+
 
 public class CheckLetter : MonoBehaviour
 {
@@ -21,11 +22,18 @@ public class CheckLetter : MonoBehaviour
 		Left,
 	};
 	public Handedness handedness;
+	public File json;
 	// Start is called before the first frame update
 	void Start()
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
 		print(textBox.text);
+		foreach (KeyValuePair<string, object> item in LoadJson())
+		{
+			print(item.Key + " = " + item.Value);
+		}
+
+
 	}
 
 	// Update is called once per frame
@@ -64,7 +72,16 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = LetterBConfidence(rightHand).ToString();
+					textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
+					+ (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)).eulerAngles
+					+ "\n" + ((new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)) *
+					Quaternion.Inverse((new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.y,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.z,
+														rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.w)))).eulerAngles;
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
@@ -81,7 +98,16 @@ public class CheckLetter : MonoBehaviour
 
 
 	}
-
+	Dictionary<string, object> LoadJson()
+	{
+		Dictionary<string, object> data;
+		using (StreamReader r = new StreamReader())
+		{
+			string json = r.ReadToEnd();
+			data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+		}
+		return data;
+	}
 	float LetterAConfidence(Hand hand)
 	{
 		List<Finger> fingers = hand.Fingers;
