@@ -5170,6 +5170,7 @@ GameObject:
   - component: {fileID: 1828049812}
   - component: {fileID: 1828049811}
   - component: {fileID: 1828049813}
+  - component: {fileID: 1828049814}
   m_Layer: 0
   m_Name: GeneralScripts
   m_TagString: Untagged
@@ -5309,9 +5310,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leapProvider: {fileID: 818453079}
+  dataPrinter: {fileID: 1828049814}
   textBox: {fileID: 647564456}
-  slider: {fileID: 0}
   handedness: 0
+  floatTolerance: 0.1
+--- !u!114 &1828049814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828049808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f5b7336b6a2e44ca2df370ba00aee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wroteYet: 0
 --- !u!114 &1917302028 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5410597111759705603, guid: 8163655ae6e81f149b112acc9972a9d3, type: 3}
