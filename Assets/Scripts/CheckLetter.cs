@@ -234,7 +234,7 @@ public class CheckLetter : MonoBehaviour
 			case "E-Right":
 				return (positiveMatchScore - 10) / (10 - 10);
 		}
-
+		return 0f;
 	}
 
 }
