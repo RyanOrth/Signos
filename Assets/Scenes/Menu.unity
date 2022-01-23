@@ -1213,10 +1213,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
-  polyHand: {fileID: 0}
-  skeletonHand: {fileID: 0}
-  glowHand: {fileID: 0}
-  ghostHand: {fileID: 0}
+  polyHand: {fileID: 546611284}
+  skeletonHand: {fileID: 1236338118}
+  glowHand: {fileID: 1152628924}
+  ghostHand: {fileID: 1500667376}
 --- !u!1001 &570948786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1762,7 +1762,6 @@ GameObject:
   - component: {fileID: 701379944}
   - component: {fileID: 701379947}
   - component: {fileID: 701379948}
-  - component: {fileID: 701379949}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1964,18 +1963,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &701379949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701379943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30fb2b99d2408b74bbf8d84409a52e9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &709987974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,10 +2569,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
-  polyHand: {fileID: 0}
-  skeletonHand: {fileID: 0}
-  glowHand: {fileID: 0}
-  ghostHand: {fileID: 0}
+  polyHand: {fileID: 546611284}
+  skeletonHand: {fileID: 1236338118}
+  glowHand: {fileID: 1152628924}
+  ghostHand: {fileID: 1500667376}
 --- !u!114 &1152628924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2946,10 +2933,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
-  polyHand: {fileID: 0}
-  skeletonHand: {fileID: 0}
-  glowHand: {fileID: 0}
-  ghostHand: {fileID: 0}
+  polyHand: {fileID: 546611284}
+  skeletonHand: {fileID: 1236338118}
+  glowHand: {fileID: 1152628924}
+  ghostHand: {fileID: 1500667376}
 --- !u!1 &1259231517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3356,10 +3343,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
-  polyHand: {fileID: 0}
-  skeletonHand: {fileID: 0}
-  glowHand: {fileID: 0}
-  ghostHand: {fileID: 0}
+  polyHand: {fileID: 546611284}
+  skeletonHand: {fileID: 1236338118}
+  glowHand: {fileID: 1152628924}
+  ghostHand: {fileID: 1500667376}
 --- !u!114 &1500667376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3384,8 +3371,8 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

@@ -20,7 +20,7 @@ public class ButtonScript : MonoBehaviour
 	public void StartGame()
 	{
 		SceneManager.LoadScene("Prefab Making");
-		this.LowPolyHandSelect();
+		// this.LowPolyHandSelect();
 	}
 
 	public void ExitGame()
