@@ -452,27 +452,90 @@ public class TestHandDataPrint : MonoBehaviour
 
 		signData.Add("HandWristPosition", hand.WristPosition);
 
-		for (int digit = 0; digit < 5; digit++)
-		{
-			Finger finger = hand.Fingers[digit];
+		//Thumb Data
+		int digit = 0;
+		Finger finger = hand.Fingers[digit];
 
-			signData.Add("FingerId", finger.Id);
-			signData.Add("FingerType", finger.Type);
-			signData.Add("HandId", finger.HandId);
+		signData.Add("FingerId", finger.Id);
+		signData.Add("FingerType", finger.Type);
+		signData.Add("HandId", finger.HandId);
 
-			signData.Add("TipPosition", finger.TipPosition);
-			signData.Add("Direction", finger.Direction);
+		signData.Add("TipPosition", finger.TipPosition);
+		signData.Add("Direction", finger.Direction);
 
-			signData.Add("Width", finger.Width);
-			signData.Add("Length", finger.Length);
+		signData.Add("Width", finger.Width);
+		signData.Add("Length", finger.Length);
 
-			signData.Add("IsExtended", finger.IsExtended);
-			signData.Add("TimeVisible", finger.TimeVisible);
+		signData.Add("IsExtended", finger.IsExtended);
+		signData.Add("TimeVisible", finger.TimeVisible);
 
-			// for (Bone.BoneType boneIndex in ){
-			// 	Bone bone = finger.Bone(boneIndex);
-			// }
-		}
+		//Index Data
+		digit = 1;
+		finger = hand.Fingers[digit];
+
+		signData.Add("FingerId", finger.Id);
+		signData.Add("FingerType", finger.Type);
+		signData.Add("HandId", finger.HandId);
+
+		signData.Add("TipPosition", finger.TipPosition);
+		signData.Add("Direction", finger.Direction);
+
+		signData.Add("Width", finger.Width);
+		signData.Add("Length", finger.Length);
+
+		signData.Add("IsExtended", finger.IsExtended);
+		signData.Add("TimeVisible", finger.TimeVisible);
+
+		//Middle Data
+		digit = 2;
+		finger = hand.Fingers[digit];
+
+		signData.Add("FingerId", finger.Id);
+		signData.Add("FingerType", finger.Type);
+		signData.Add("HandId", finger.HandId);
+
+		signData.Add("TipPosition", finger.TipPosition);
+		signData.Add("Direction", finger.Direction);
+
+		signData.Add("Width", finger.Width);
+		signData.Add("Length", finger.Length);
+
+		signData.Add("IsExtended", finger.IsExtended);
+		signData.Add("TimeVisible", finger.TimeVisible);
+
+		//Ring Data
+		digit = 3;
+		finger = hand.Fingers[digit];
+
+		signData.Add("FingerId", finger.Id);
+		signData.Add("FingerType", finger.Type);
+		signData.Add("HandId", finger.HandId);
+
+		signData.Add("TipPosition", finger.TipPosition);
+		signData.Add("Direction", finger.Direction);
+
+		signData.Add("Width", finger.Width);
+		signData.Add("Length", finger.Length);
+
+		signData.Add("IsExtended", finger.IsExtended);
+		signData.Add("TimeVisible", finger.TimeVisible);
+
+		//Pinky Data
+		digit = 4;
+		finger = hand.Fingers[digit];
+
+		signData.Add("FingerId", finger.Id);
+		signData.Add("FingerType", finger.Type);
+		signData.Add("HandId", finger.HandId);
+
+		signData.Add("TipPosition", finger.TipPosition);
+		signData.Add("Direction", finger.Direction);
+
+		signData.Add("Width", finger.Width);
+		signData.Add("Length", finger.Length);
+
+		signData.Add("IsExtended", finger.IsExtended);
+		signData.Add("TimeVisible", finger.TimeVisible);
 
 		return signData;
 	}
