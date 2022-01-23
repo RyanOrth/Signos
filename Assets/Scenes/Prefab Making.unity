@@ -2057,5 +2057,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rendering Setup
       objectReference: {fileID: 0}
+    - target: {fileID: 7727370138073142556, guid: f8d3221bc05786441869c93280a1ea81, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -513.3998
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727370138073142556, guid: f8d3221bc05786441869c93280a1ea81, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -279.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d3221bc05786441869c93280a1ea81, type: 3}
