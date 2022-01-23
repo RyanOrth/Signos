@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003995701, g: 0.00021792622, b: 0.000000051515347, a: 1}
+  m_IndirectSpecularColor: {r: 0.003995703, g: 0.00021792634, b: 0.000000051515347, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -325,6 +325,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &51007981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +885,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &457341616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,8 +1126,8 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1205,6 +1213,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!1001 &570948786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1475,6 +1487,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &610715127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &698696388
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2553,6 +2569,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &1152628924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2576,9 +2596,9 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2826,8 +2846,8 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2913,6 +2933,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!1 &1259231517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,6 +3203,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 698696387}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!1 &1350514386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,6 +3343,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &1500667376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3339,7 +3371,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4073,6 +4105,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &1871864116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4224,6 +4260,10 @@ MonoBehaviour:
   progressBar: {fileID: 0}
   handRender: {fileID: 0}
   handSettings: {fileID: 0}
+  polyHand: {fileID: 0}
+  skeletonHand: {fileID: 0}
+  glowHand: {fileID: 0}
+  ghostHand: {fileID: 0}
 --- !u!114 &1877323351
 MonoBehaviour:
   m_ObjectHideFlags: 0
