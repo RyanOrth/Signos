@@ -1,0 +1,1 @@
+HandId,HandConfidence,HandPalmNormalPitch,HandPalmNormalRoll,HandPalmDirectionRoll,HandPalmPosition,HandPalmVelocity,HandPalmNormal,HandDirection,HandRotation,GrabStrength,GrabAngle,PinchDistance,PinchStrength,PalmWidth,StabilizedPalmPosition,TimeVisible,HandWristPosition
