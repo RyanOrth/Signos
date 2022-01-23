@@ -63,15 +63,19 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = rightHand.GrabStrength.ToString();
+					textBox.text = LetterBConfidence(rightHand).ToString();
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
 					textBox.text = leftHand.GrabStrength.ToString();
 				break;
 		}
-		if (Input.GetKeyDown(KeyCode.KeypadEnter))
+		if (Input.GetKeyDown(KeyCode.A))
+		{
 			print("A confd: " + LetterAConfidence(rightHand, rightHand.Fingers).ToString());
+			print("B confd: " + LetterBConfidence(rightHand).ToString());
+		}
+
 
 
 
@@ -93,10 +97,32 @@ public class CheckLetter : MonoBehaviour
 		}
 		totalScore += thumbScore;
 		print("Total Score: " + totalScore.ToString());
-		return 1 - totalScore;
+		return 1 - (totalScore - 0.1f) / (0.5f - 0.1f);
 	}
 
+	float LetterBConfidence(Hand hand)
+	{
+		List<Finger> fingers = hand.Fingers;
+		float totalScore = 0f;
+		float fingersStraight = 0f;
+		float fingersTogether = 0f;
+		// int digit = 2;
+		// Vector handDirection = hand.Direction;
+		for (int digit = 1; digit < 5; digit++)
+		{
+			fingersStraight = fingers[digit - 1].Bone(Bone.BoneType.TYPE_DISTAL).Direction.Dot(fingers[digit - 1].Bone(Bone.BoneType.TYPE_METACARPAL).Direction);
+		}
+		fingersStraight = (fingersStraight - -0.85f) / (1f - -0.85f);
 
+		for (int digit = 2; digit < 5; digit++)
+		{
+			fingersTogether = fingers[digit - 1].Bone(Bone.BoneType.TYPE_DISTAL).Direction.Cross(fingers[digit].Bone(Bone.BoneType.TYPE_DISTAL).Direction).Magnitude;
+		}
+		fingersTogether = 1 - (fingersTogether - 0.03f) / (0.5f - 0.03f);
 
+		totalScore += 0.75f * fingersStraight;
+		totalScore += 0.25f * fingersTogether;
+		return totalScore;
+	}
 
 }
