@@ -4,8 +4,8 @@ using UnityEngine;
 using Leap.Unity;
 using Leap;
 using TMPro;
-using UnityEngine.UI;
 
+using Newtonsoft.Json;
 
 public class CheckLetter : MonoBehaviour
 {
@@ -15,7 +15,6 @@ public class CheckLetter : MonoBehaviour
 	Hand rightHand;
 	Hand leftHand;
 	public TMP_Text textBox;
-    public Slider slider;
 	public enum Handedness
 	{
 		Right,
@@ -65,11 +64,11 @@ public class CheckLetter : MonoBehaviour
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					slider.value = LetterBConfidence(rightHand) * 100;
+					textBox.text = LetterBConfidence(rightHand).ToString();
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
-                    slider.value = LetterAConfidence(leftHand) * 100;
+					textBox.text = LetterAConfidence(leftHand).ToString();
 				break;
 		}
 		if (Input.GetKeyDown(KeyCode.A))
@@ -140,12 +139,22 @@ public class CheckLetter : MonoBehaviour
 	// {
 	// 	List<Finger> fingers = hand.Fingers;
 	// 	float[] tipToKnuckle = new float[4];
-	// 	float[][] 
+	// 	// float[][] 
 	// 	for (int digit = 1; digit < tipToKnuckle.Length; digit++)
 	// 	{
 	// 		tipToKnuckle[digit - 1] = fingers[digit].TipPosition.DistanceTo(fingers[digit].Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint);
 	// 	}
 
 	// }
+
+	float LetterCConfidence(Hand hand)
+	{
+		float totalScore = 0f;
+
+
+
+
+		return totalScore;
+	}
 
 }
