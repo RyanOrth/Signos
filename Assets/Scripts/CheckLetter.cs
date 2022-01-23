@@ -6,6 +6,7 @@ using Leap;
 using TMPro;
 
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class CheckLetter : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class CheckLetter : MonoBehaviour
 	Hand rightHand;
 	Hand leftHand;
 	public TMP_Text textBox;
+    public Slider slider;
 	public enum Handedness
 	{
 		Right,
@@ -25,7 +27,7 @@ public class CheckLetter : MonoBehaviour
 	void Start()
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
-		print(textBox.text);
+		// print(textBox.text);
 	}
 
 	// Update is called once per frame
@@ -63,12 +65,12 @@ public class CheckLetter : MonoBehaviour
 		switch (handedness)
 		{
 			case Handedness.Right:
-				if (rightHand != null)
-					textBox.text = LetterBConfidence(rightHand).ToString();
+                if (rightHand != null)
+                    slider.value = LetterAConfidence(rightHand) * 100;
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
-					textBox.text = LetterAConfidence(leftHand).ToString();
+					slider.value = LetterAConfidence(leftHand) * 100;
 				break;
 		}
 		if (Input.GetKeyDown(KeyCode.A))
