@@ -59,44 +59,61 @@ public class CheckLetter : MonoBehaviour
 			default:
 				throw new System.Exception("Bad Hand Count");
 		}
+
 		switch (handedness)
 		{
 			case Handedness.Right:
 				if (rightHand != null)
-					textBox.text = rightHand.GrabStrength.ToString();
+					textBox.text = LetterAConfidence(rightHand).ToString();
 				break;
 			case Handedness.Left:
 				if (leftHand != null)
-					textBox.text = leftHand.GrabStrength.ToString();
+					textBox.text = LetterAConfidence(leftHand).ToString();
 				break;
 		}
-		if (Input.GetKeyDown(KeyCode.KeypadEnter))
-			print("A confd: " + LetterAConfidence(rightHand, rightHand.Fingers).ToString());
+
+		// if (Input.GetKeyDown(KeyCode.KeypadEnter))
+		// print("A confd: " + LetterAConfidence(rightHand).ToString());
 
 
 
 	}
 
-	float LetterAConfidence(Hand hand, List<Finger> fingers)
+	float LetterAConfidence(Hand hand)
 	{
+		List<Finger> fingers = hand.Fingers;
 		Vector palmPosition = hand.PalmPosition;
 		float[] fingerPalmDelta = new float[4];
-		float totalScore = 0f, thumbScore;
+		float totalScore = 0f, thumbScore, thumbVectorScore;
 		for (int digit = 1; digit < 5; digit++)
 		{
 			fingerPalmDelta[digit - 1] = palmPosition.DistanceTo(fingers[digit].TipPosition);
 		}
 		thumbScore = fingers[0].TipPosition.DistanceTo(fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Center);
+
+		thumbVectorScore = hand.Direction.Normalized.Cross(fingers[0].Bone(Bone.BoneType.TYPE_DISTAL).Direction).Magnitude;
+
 		for (int i = 0; i < fingerPalmDelta.Length; i++)
 		{
 			totalScore += fingerPalmDelta[i];
 		}
-		totalScore += thumbScore;
-		print("Total Score: " + totalScore.ToString());
-		return 1 - totalScore;
+		totalScore += thumbScore + 0.2f * thumbVectorScore;
+		// print("Total Score: " + totalScore.ToString());
+		return 1 - (totalScore - 0.22f) / (0.67f - 0.22f);
+		// return totalScore;
 	}
 
 
+	// float LetterCConfidence(Hand hand)
+	// {
+	// 	List<Finger> fingers = hand.Fingers;
+	// 	float[] tipToKnuckle = new float[4];
+	// 	float[][] 
+	// 	for (int digit = 1; digit < tipToKnuckle.Length; digit++)
+	// 	{
+	// 		tipToKnuckle[digit - 1] = fingers[digit].TipPosition.DistanceTo(fingers[digit].Bone(Bone.BoneType.TYPE_METACARPAL).NextJoint);
+	// 	}
 
+	// }
 
 }
