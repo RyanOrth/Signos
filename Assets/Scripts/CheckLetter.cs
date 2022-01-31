@@ -22,13 +22,14 @@ public class CheckLetter : MonoBehaviour
 		Right,
 		Left,
 	};
+	public string activeCase = "C-Right";
 	public Handedness handedness;
 	// Start is called before the first frame update
 	void Start()
 	{
 		// textBox = GetComponent<TMPro.TextMeshPro>();
 		print(textBox.text);
-		foreach (KeyValuePair<string, float> item in LoadJson("C-Right"))
+		foreach (KeyValuePair<string, float> item in LoadJson(activeCase))
 		{
 			print(item.Key + " = " + item.Value);
 		}
@@ -73,7 +74,7 @@ public class CheckLetter : MonoBehaviour
 			case Handedness.Right:
 				if (rightHand != null)
 				{
-					//textBox.text = "" + Confidence(rightHand, "C-Right");
+					textBox.text = "" + Confidence(rightHand, activeCase);
 				}
 				// textBox.text = (new Quaternion(rightHand.Rotation.x, rightHand.Rotation.y, rightHand.Rotation.z, rightHand.Rotation.w)).eulerAngles + "\n"
 				// + (new Quaternion(rightHand.Fingers[1].Bone(Bone.BoneType.TYPE_PROXIMAL).Rotation.x,
@@ -169,8 +170,6 @@ public class CheckLetter : MonoBehaviour
 	}
 
 	public float floatTolerance = 0.1f;
-	public float max = 40f;
-	public float min = 10f;
 
 	float Confidence(Hand hand, string letter)
 	{
@@ -224,17 +223,21 @@ public class CheckLetter : MonoBehaviour
 				negativeMatchScore++;
 			}
 		}
+		float result = 0f;
 		switch (letter)
 		{
-
+			//(positiveMatchScore - min) / (max - min)
 			case "C-Right":
-				return (positiveMatchScore - min) / (max - min);
+				result = (positiveMatchScore - 20f) / (35f - 20f);
+				break;
 			case "D-Right":
-				return (positiveMatchScore - 15) / (40 - 15);
+				result = (positiveMatchScore - 20f) / (28f - 20f);
+				break;
 			case "E-Right":
-				return (positiveMatchScore - 10) / (10 - 10);
+				result = (positiveMatchScore - 20f) / (30f - 20f);
+				break;
 		}
-		return 0f;
+		return (result <= 1f && result >= 0) ? result : (result > 0) ? 1f : 0f;
 	}
 
 }

@@ -36,6 +36,7 @@ public class LessonHandler : MonoBehaviour
 	};
 
 	public Lesson currentLesson = Lesson.A;
+	public float lessonTolerance = 85f;
 
 	public enum Handedness
 	{
@@ -83,7 +84,6 @@ public class LessonHandler : MonoBehaviour
 				throw new System.Exception("Bad Hand Count");
 		}
 
-		float lessonTolerance = 85f;
 
 		switch (currentLesson)
 		{
@@ -91,7 +91,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = LetterAConfidence(rightHand) * 100;
-					lessonTolerance = 75f;
+					// lessonTolerance = 75f;
 				}
 				// if (leftHand != null)
 				// {
@@ -103,7 +103,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = LetterBConfidence(rightHand) * 100;
-					lessonTolerance = 75f;
+					// lessonTolerance = 75f;
 				}
 				// if (leftHand != null)
 				// {
@@ -114,7 +114,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "C-Right") * 100;
-					lessonTolerance = 60f;
+					// lessonTolerance = 60f;
 				}
 				/*if (leftHand != null)
 				{
@@ -125,7 +125,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "D-Right") * 100;
-					lessonTolerance = 25f;
+					// lessonTolerance = 25f;
 				}
 				/*if (leftHand != null)
 				{
@@ -136,7 +136,7 @@ public class LessonHandler : MonoBehaviour
 				if (rightHand != null)
 				{
 					slider.value = Confidence(rightHand, "E-Right") * 100;
-					lessonTolerance = 50f;
+					// lessonTolerance = 50f;
 				}
 				/*if (leftHand != null)
 				{
@@ -159,7 +159,7 @@ public class LessonHandler : MonoBehaviour
 		}
 		else
 		{
-			totalTimeCorrect = 0;
+			// totalTimeCorrect = 0;
 			correctSign = false;
 		}
 
@@ -256,8 +256,6 @@ public class LessonHandler : MonoBehaviour
 	}
 
 	public float floatTolerance = 0.1f;
-	public float max = 40f;
-	public float min = 10f;
 	float Confidence(Hand hand, string letter)
 	{
 		int positiveMatchScore = 0;
@@ -311,16 +309,21 @@ public class LessonHandler : MonoBehaviour
 			}
 		}
 
+		float result = 0f;
 		switch (letter)
 		{
+			//(positiveMatchScore - min) / (max - min)
 			case "C-Right":
-				return (positiveMatchScore - min) / (max - min);
+				result = (positiveMatchScore - 20f) / (35f - 20f);
+				break;
 			case "D-Right":
-				return (positiveMatchScore - 15f) / (40f - 15f);
+				result = (positiveMatchScore - 20f) / (28f - 20f);
+				break;
 			case "E-Right":
-				return (positiveMatchScore - 16f) / (37f - 16f);
+				result = (positiveMatchScore - 20f) / (30f - 20f);
+				break;
 		}
-		return 0.0f;
+		return (result <= 1f && result >= 0) ? result : (result > 0) ? 1f : 0f;
 	}
 
 	public Dictionary<string, float> GenerateSignData(Hand hand)
