@@ -177,7 +177,7 @@ public class LessonHandler : MonoBehaviour
 		{
 			currentLesson++;
 			slider.value = 0;
-			animator.SetInteger("Lesson", currentLesson.indexOf());
+			animator.SetInteger("number of lessons", currentLesson.indexOf());
 		}
 		textBox.GetComponent<Text>().text = currentLesson.ToString();
 		// if (Input.GetKeyDown(KeyCode.A))
